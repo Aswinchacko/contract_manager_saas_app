@@ -7,7 +7,7 @@ $userClients = $clients->find(['user_id' => $_SESSION['user_id']])->toArray();
 
 // Calculate stats
 $totalClients = count($userClients);
-$activeClients = count(array_filter($userClients, fn($c) => $c['status'] === 'active'));
+$activeClients = count($userClients); // All clients are considered active by default
 $totalContracts = 0;
 $totalRevenue = 0;
 
@@ -32,6 +32,22 @@ include 'includes/header.php';
                 class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Add Client
             </button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+            <dt class="truncate text-sm font-medium text-gray-500">Total Clients</dt>
+            <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900"><?php echo $totalClients; ?></dd>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+            <dt class="truncate text-sm font-medium text-gray-500">Active Contracts</dt>
+            <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900"><?php echo $totalContracts; ?></dd>
+        </div>
+        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+            <dt class="truncate text-sm font-medium text-gray-500">Total Revenue</dt>
+            <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">$<?php echo number_format($totalRevenue, 2); ?></dd>
         </div>
     </div>
 
